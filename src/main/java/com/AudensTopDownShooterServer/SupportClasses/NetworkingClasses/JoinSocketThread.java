@@ -9,7 +9,7 @@ public class JoinSocketThread implements Runnable{
 
     private int portNumber;
     private ServerSocket serverSocket;
-    private Socket cliendSocket;
+    private Socket clientSocket;
     private ClientManager clientManager;
 
     public JoinSocketThread(ClientManager ClientManager, int PortNumber)
@@ -33,9 +33,9 @@ public class JoinSocketThread implements Runnable{
         {
             try 
             {
-                cliendSocket = serverSocket.accept();
+                clientSocket = serverSocket.accept();
                 System.out.println("connected");
-                clientManager.connectPlayer(cliendSocket);
+                clientManager.connectPlayer(clientSocket);
             } 
             catch (Exception e) 
             {
