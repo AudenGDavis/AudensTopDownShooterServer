@@ -54,6 +54,9 @@ public class ClientManager
             out.println(gsonConverter.toJson(newPlayerConnection));
             serverSender = new ServerSender(newPlayerConnection.getClientRecieverPortNumber(),game);
             new Thread(serverSender).start();
+
+            serverReceiver = new ServerReceiver(newPlayerConnection.getClientSenderPortNumber(),game);
+            new Thread(serverReceiver).start();
         } 
         catch (IOException e) 
         {
