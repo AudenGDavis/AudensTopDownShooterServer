@@ -45,27 +45,31 @@ public class GamePanel extends JPanel
 
 
         this.setBounds(0,0,parentFrame.getWidth(),parentFrame.getHeight());
-        if(game != null && game.getPlayers().size() != 0)
-        {
-            double xSum = 0;
-            double ySum = 0;
+        // if(game != null && game.getPlayers().size() != 0)
+        // {
+        //     double xSum = 0;
+        //     double ySum = 0;
             
-            for (Player player : game.getPlayers()) 
-            {
-                if(player.getHealth() > 0)
-                {
-                    System.out.print(player.getHealth() + ", ");
-                    xSum += player.getXPosition();
-                    ySum += player.getYPosition();
-                }
-            }
-            zoom = 0.5f;
+        //     for (Player player : game.getPlayers()) 
+        //     {
+        //         if(player.getHealth() > 0)
+        //         {
+        //             System.out.print(player.getHealth() + ", ");
+        //             xSum += player.getXPosition();
+        //             ySum += player.getYPosition();
+        //         }
+        //     }
+        //     zoom = 0.5f;
 
-            xCamera = xSum / game.getPlayers().size();
-            yCamera = ySum / game.getPlayers().size();
-            System.out.println(xCamera + " - " + yCamera);
-        }
+        //     xCamera = xSum / game.getPlayers().size();
+        //     yCamera = ySum / game.getPlayers().size();
+        //     System.out.println(xCamera + " - " + yCamera);
+        // }
         //test
+
+        xCamera = 1000;
+        yCamera = 700;
+        zoom = 0.25f;
 
         
         Graphics2D g = (Graphics2D) G.create();

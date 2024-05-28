@@ -57,7 +57,7 @@ public class GameManager implements Runnable {
     synchronized private void update()
     {
         //update player's positions and their respective gun reload times
-        for(int p = 0; p < game.getPlayers().size();p++)
+        for(int p = 1; p < game.getPlayers().size();p++)
         {
             //reloading their gun
             game.getPlayers().get(p).getGun().setReloadTime(
