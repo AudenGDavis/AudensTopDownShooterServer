@@ -1,11 +1,9 @@
 package com.AudensTopDownShooterServer;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
-import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Gun;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
 import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.LineCollider;
 import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.Vector2;
@@ -47,9 +45,7 @@ public class GameManager implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
-            // ifa
-            // this.update();
+            this.update();
         
             
 

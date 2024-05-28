@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
 public class ServerReceiver implements Runnable
 {
@@ -28,14 +27,12 @@ public class ServerReceiver implements Runnable
     public void run() 
     {
         BufferedReader in = null;
-		PrintWriter out = null;
 
         try 
         {
             serverSocket = new ServerSocket(portNumber);
             clientSocket = serverSocket.accept();
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		    out = new PrintWriter(clientSocket.getOutputStream(),true);
         } 
         catch (IOException e) 
         {
@@ -47,9 +44,6 @@ public class ServerReceiver implements Runnable
         {
             try {
                 game.importGame(gson.fromJson(in.readLine(), Game.class));
-                if(game.getPlayers().size() != 0){
-                    System.out.println(game.getPlayers().get(0).getXPosition());
-                }
             } 
             catch (Exception e) 
             {

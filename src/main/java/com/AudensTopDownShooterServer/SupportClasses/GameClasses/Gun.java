@@ -1,6 +1,5 @@
 package com.AudensTopDownShooterServer.SupportClasses.GameClasses;
 
-import java.awt.Color;
 
 public class Gun {
     private int damage;//damager per hit

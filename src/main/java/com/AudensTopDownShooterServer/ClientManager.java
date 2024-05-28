@@ -5,12 +5,8 @@ import java.net.Socket;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
 import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.JoinSocketThread;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList; 
 import com.google.gson.Gson; 
 
@@ -44,7 +40,6 @@ public class ClientManager
     {
         try 
         {
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
             
             PlayerConnection newPlayerConnection = new PlayerConnection(lastUsedPortNumber + 1, lastUsedPortNumber + 2, ipAddress,numPlayers + 1);
@@ -57,6 +52,8 @@ public class ClientManager
 
             serverReceiver = new ServerReceiver(newPlayerConnection.getClientSenderPortNumber(),game);
             new Thread(serverReceiver).start();
+
+            playerConnections.add(newPlayerConnection);
         } 
         catch (IOException e) 
         {

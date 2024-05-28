@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,7 +20,6 @@ public class GamePanel extends JPanel
     private double yCamera = 0;
     private float zoom = 1f;
     JFrame parentFrame;
-    private int localPlayer = 0;
     public static final float MIN_ZOOM = 0.05f;
     
     public GamePanel(Game Game, JFrame parentFrame){
@@ -45,11 +43,28 @@ public class GamePanel extends JPanel
     public void paint(Graphics G) 
     { 
 
-        this.setBounds(0,0,parentFrame.getWidth(),parentFrame.getHeight());
-        xCamera = game.getPlayers().get(localPlayer).getXPosition();
-        yCamera = game.getPlayers().get(localPlayer).getYPosition();
-        
 
+        this.setBounds(0,0,parentFrame.getWidth(),parentFrame.getHeight());
+        if(game != null && game.getPlayers().size() != 0)
+        {
+            double xSum = 0;
+            double ySum = 0;
+            
+            for (Player player : game.getPlayers()) 
+            {
+                if(player.getHealth() > 0)
+                {
+                    System.out.print(player.getHealth() + ", ");
+                    xSum += player.getXPosition();
+                    ySum += player.getYPosition();
+                }
+            }
+            zoom = 0.5f;
+
+            xCamera = xSum / game.getPlayers().size();
+            yCamera = ySum / game.getPlayers().size();
+            System.out.println(xCamera + " - " + yCamera);
+        }
         //test
 
         

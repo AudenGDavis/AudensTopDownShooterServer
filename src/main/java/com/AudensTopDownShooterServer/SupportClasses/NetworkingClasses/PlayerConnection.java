@@ -1,6 +1,5 @@
 package com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses;
 
-import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
 
 public class PlayerConnection {
     private int clientSenderPortNumber;
