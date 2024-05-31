@@ -42,7 +42,7 @@ public class ClientManager
         {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
             
-            PlayerConnection newPlayerConnection = new PlayerConnection(lastUsedPortNumber + 1, lastUsedPortNumber + 2, ipAddress,numPlayers + 1);
+            PlayerConnection newPlayerConnection = new PlayerConnection(lastUsedPortNumber + 1, lastUsedPortNumber + 2, ipAddress,numPlayers + 1,game);
             lastUsedPortNumber += 2;
             numPlayers += 1;
 

@@ -1,7 +1,7 @@
 package com.AudensTopDownShooterServer;
 
 import java.util.ArrayList;
-
+import java.util.Map;
 
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
@@ -25,7 +25,8 @@ public class GameManager implements Runnable {
     public void run() 
     {
         renderingThread = new Thread(() -> {
-            while (true) {
+            while (true) 
+            {
                 // Render game graphics
                 gamePanel.repaint();
 
@@ -57,47 +58,42 @@ public class GameManager implements Runnable {
     synchronized private void update()
     {
         //update player's positions and their respective gun reload times
-        for(int p = 1; p < game.getPlayers().size();p++)
+        for (Map.Entry<Integer, Player> playerEntry : game.getPlayers().entrySet()) 
         {
             //reloading their gun
-            game.getPlayers().get(p).getGun().setReloadTime(
-                game.getPlayers().get(p).getGun().getReloadTime() >= game.getPlayers().get(p).getGun().getReloadTimeRequirment()? 
-                game.getPlayers().get(p).getGun().getReloadTimeRequirment() : game.getPlayers().get(p).getGun().getReloadTime() + miliSecondRate
+            game.getPlayers().get(playerEntry.getKey()).getGun().setReloadTime(
+                game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() >= game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment()? 
+                game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment() : game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() + miliSecondRate
             );
 
 
             //adjust players position
-            game.getPlayers().get(p).setXPosition(game.getPlayers().get(p).getXVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(p).getXPosition());
-            game.getPlayers().get(p).setYPosition(game.getPlayers().get(p).getYVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(p).getYPosition());
+            game.getPlayers().get(playerEntry.getKey()).setXPosition(game.getPlayers().get(playerEntry.getKey()).getXVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getXPosition());
+            game.getPlayers().get(playerEntry.getKey()).setYPosition(game.getPlayers().get(playerEntry.getKey()).getYVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getYPosition());
 
 
 
 
 
             //adjust player in they're colliding
-            Vector2 collision = ColliderManager.isCollidingAny(game, game.getPlayers().get(p));
+            Vector2 collision = ColliderManager.isCollidingAny(game, game.getPlayers().get(playerEntry.getKey()));
             while(collision != null)
             {
-                double dy = game.getPlayers().get(p).getYPosition() - collision.getY();
-                double dx = game.getPlayers().get(p).getXPosition() - collision.getX();
+                double dy = game.getPlayers().get(playerEntry.getKey()).getYPosition() - collision.getY();
+                double dx = game.getPlayers().get(playerEntry.getKey()).getXPosition() - collision.getX();
 
-                double s = Math.sqrt(dy*dy + dx*dx)/game.getPlayers().get(p).getSize();
+                double s = Math.sqrt(dy*dy + dx*dx)/game.getPlayers().get(playerEntry.getKey()).getSize();
 
                 dy = dy/s*1.00001;
                 dx = dx/s*1.00001;
 
                 
 
-                game.getPlayers().get(p).setXPosition(collision.getX() + dx);
-                game.getPlayers().get(p).setYPosition(collision.getY() + dy);
-                collision = ColliderManager.isCollidingAny(game, game.getPlayers().get(p));
-            }
-
-
-
-
-            
-        }   
+                game.getPlayers().get(playerEntry.getKey()).setXPosition(collision.getX() + dx);
+                game.getPlayers().get(playerEntry.getKey()).setYPosition(collision.getY() + dy);
+               
+            } 
+        } 
     
         
         

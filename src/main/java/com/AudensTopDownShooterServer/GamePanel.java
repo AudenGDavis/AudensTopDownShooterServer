@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.util.Map;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -79,8 +81,9 @@ public class GamePanel extends JPanel
         //draw player
         g.setStroke(new BasicStroke(zoom * 5));
         
-        for (int i = game.getPlayers().size() -1 ; i >= 0; i--){
-            Player player = game.getPlayers().get(i);
+        for (Map.Entry<Integer, Player> playerEntry : game.getPlayers().entrySet()) 
+        {
+            Player player = game.getPlayers().get(playerEntry.getKey());
             if(player.getHealth() > 0){
                 g.setStroke(new BasicStroke(zoom * 3));
                 g.setColor(player.getTeam() == 1? new Color(30, 0, 222) : new Color(235, 16, 0));
@@ -127,10 +130,13 @@ public class GamePanel extends JPanel
             Bullet bullet = game.getBullets().get(b);
             g.setStroke(new BasicStroke(zoom * 5));
             g.drawLine((int)worldToFrameX(bullet.getXPosition()), (int)worldToFrameY(bullet.getYPosition()), (int)worldToFrameX(bullet.getXPosition() + bullet.getXVelocity()/100), (int)worldToFrameY(bullet.getYPosition() + bullet.getYVelocity()/100));
-            
-            
+        }
 
-  
+        for (int b = 0; b < game.getLocalBullets().size(); b++)
+        {
+            Bullet bullet = game.getLocalBullets().get(b);
+            g.setStroke(new BasicStroke(zoom * 5));
+            g.drawLine((int)worldToFrameX(bullet.getXPosition()), (int)worldToFrameY(bullet.getYPosition()), (int)worldToFrameX(bullet.getXPosition() + bullet.getXVelocity()/100), (int)worldToFrameY(bullet.getYPosition() + bullet.getYVelocity()/100));
         }
 
         

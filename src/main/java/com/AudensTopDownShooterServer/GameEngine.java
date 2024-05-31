@@ -118,21 +118,20 @@ public class GameEngine extends JFrame
         game.getWalls().add(new Wall(new Vector2(1700,900), new Vector2(1800,900)));
 
 
-        game.addPlayer(new Player(Gun.ar15(),50,750, 1));
-
-        game.addPlayer(new Player(Gun.ar15(),450,750, 2));
-        game.addPlayer(new Player(Gun.glock9(),250,250, 2));
-        game.addPlayer(new Player(Gun.uzi(),550,50, 2));
-        game.addPlayer(new Player(Gun.ar15(),550,1350, 2));
-        game.addPlayer(new Player(Gun.uzi(),950,50, 2));
-        game.addPlayer(new Player(Gun.mac10(),1250,1050, 2));
-        game.addPlayer(new Player(Gun.ak47(),1050,1250, 2));
-        game.addPlayer(new Player(Gun.ar15(),1650,50, 2));
-        game.addPlayer(new Player(Gun.uzi(),1750,650, 2));
-        game.addPlayer(new Player(Gun.awp(),1950,850, 2));
-        game.addPlayer(new Player(Gun.awp(),2250,1250, 2));
+        game.addPlayer(new Player(Gun.ar15(),50,750, 1,1));
+        System.out.println(game);
+        // game.addPlayer(new Player(Gun.ar15(),450,750, 2));
+        // game.addPlayer(new Player(Gun.glock9(),250,250, 2));
+        // game.addPlayer(new Player(Gun.uzi(),550,50, 2));
+        // game.addPlayer(new Player(Gun.ar15(),550,1350, 2));
+        // game.addPlayer(new Player(Gun.uzi(),950,50, 2));
+        // game.addPlayer(new Player(Gun.mac10(),1250,1050, 2));
+        // game.addPlayer(new Player(Gun.ak47(),1050,1250, 2));
+        // game.addPlayer(new Player(Gun.ar15(),1650,50, 2));
+        // game.addPlayer(new Player(Gun.uzi(),1750,650, 2));
+        // game.addPlayer(new Player(Gun.awp(),1950,850, 2));
+        // game.addPlayer(new Player(Gun.awp(),2250,1250, 2));
         
-        game.getWalls().add(new Wall(new Vector2(0,0), new Vector2(0,1500)));
 
         clientManager = new ClientManager(42069,"127.0.0.1",game);
 
