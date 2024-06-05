@@ -15,12 +15,17 @@ public class ServerSender implements Runnable
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private Gson gson;
+    private PlayerConnection playerConnection;
+    private String response;
+    private ServerReceiver receiver;
 
-    public ServerSender(int PortNumber, Game Game)
+    public ServerSender(int PortNumber, Game Game, PlayerConnection PlayerConnection,ServerReceiver Receiver)
     {
         portNumber = PortNumber;
         game = Game;
         gson = new Gson();
+        playerConnection = PlayerConnection;
+        receiver = Receiver;
     }
 
 
@@ -40,9 +45,10 @@ public class ServerSender implements Runnable
         }
         
 
-        while(true)
+        while(receiver.stillConnected)
         {
-            try {
+            try 
+            {
                 out.println(gson.toJson(game,Game.class));
             } 
             catch (Exception e) 
@@ -51,5 +57,15 @@ public class ServerSender implements Runnable
             }
         }
         
+        try 
+        {
+            serverSocket.close();
+            clientSocket.close();
+        } 
+        catch (IOException e) 
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

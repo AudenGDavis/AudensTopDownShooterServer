@@ -118,7 +118,7 @@ public class GameEngine extends JFrame
         game.getWalls().add(new Wall(new Vector2(1700,900), new Vector2(1800,900)));
 
 
-        game.addPlayer(new Player(Gun.ar15(),50,750, 1,1));
+        
         System.out.println(game);
         // game.addPlayer(new Player(Gun.ar15(),450,750, 2));
         // game.addPlayer(new Player(Gun.glock9(),250,250, 2));

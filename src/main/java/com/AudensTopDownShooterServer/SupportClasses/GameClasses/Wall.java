@@ -13,16 +13,16 @@ public class Wall {
         end = End;
     }
 
-    public synchronized Vector2 getStart() {
+    public Vector2 getStart() {
         return start;
     }
-    public synchronized void setStart(Vector2 start) {
+    public void setStart(Vector2 start) {
         this.start = start;
     }
-    public synchronized Vector2 getEnd() {
+    public Vector2 getEnd() {
         return end;
     }
-    public synchronized void setEnd(Vector2 end) {
+    public void setEnd(Vector2 end) {
         this.end = end;
     }
 

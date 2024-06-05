@@ -3,6 +3,8 @@ package com.AudensTopDownShooterServer;
 import java.net.Socket;
 
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
+import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Gun;
+import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
 import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.JoinSocketThread;
 
 import java.io.IOException;
@@ -46,13 +48,16 @@ public class ClientManager
             lastUsedPortNumber += 2;
             numPlayers += 1;
 
-            out.println(gsonConverter.toJson(newPlayerConnection));
-            serverSender = new ServerSender(newPlayerConnection.getClientRecieverPortNumber(),game);
-            new Thread(serverSender).start();
+            game.addPlayer(new Player(Gun.ar15(),50,750, 1,newPlayerConnection.getPlayerID()));
+            
 
-            serverReceiver = new ServerReceiver(newPlayerConnection.getClientSenderPortNumber(),game);
+            serverReceiver = new ServerReceiver(newPlayerConnection.getClientSenderPortNumber(),game,newPlayerConnection);
             new Thread(serverReceiver).start();
 
+            serverSender = new ServerSender(newPlayerConnection.getClientRecieverPortNumber(),game,newPlayerConnection,serverReceiver);
+            new Thread(serverSender).start();
+
+            out.println(gsonConverter.toJson(newPlayerConnection));
             playerConnections.add(newPlayerConnection);
         } 
         catch (IOException e) 

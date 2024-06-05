@@ -15,12 +15,17 @@ public class ServerReceiver implements Runnable
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private Gson gson;
+    private PlayerConnection playerConnection;
+    private String response;
 
-    public ServerReceiver(int PortNumber, Game Game)
+
+    public boolean stillConnected = true;
+    public ServerReceiver(int PortNumber, Game Game, PlayerConnection PlayerConnection)
     {
         portNumber = PortNumber;
         game = Game;
         gson = new Gson();
+        playerConnection = PlayerConnection;
     }
 
 
@@ -39,17 +44,35 @@ public class ServerReceiver implements Runnable
             e.printStackTrace();
         }
         
-
-        while(true)
+        try {
+            response = in.readLine();
+        } 
+        catch (IOException e) 
         {
-            try {
-                game.importGame(gson.fromJson(in.readLine(), Game.class));
+            e.printStackTrace();
+        }
+        while(response != null)
+        {
+            try
+            {
+                game.fromClientPackage(gson.fromJson(response, ClientPackage.class),playerConnection.getPlayerID());
+                response = in.readLine();
             } 
             catch (Exception e) 
             {
                 e.printStackTrace();
             }
         }
+        try 
+        {
+            serverSocket.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        stillConnected = false;
         
     }
 }

@@ -8,6 +8,8 @@ import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.CircleCollid
 import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.LineCollider;
 import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.Vector2;
 
+import java.util.Map;
+
 public abstract class ColliderManager {
 
     public static com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.Vector2 isColliding(LineCollider collider1, LineCollider collider2){
@@ -183,13 +185,13 @@ public abstract class ColliderManager {
     public static ArrayList<Player> isCollidingAnyPlayers(Game game,LineCollider lineCollider)
     {
         ArrayList<Player> players = new ArrayList<>();
-        for(int p = 0; p < game.getPlayers().size();p++)
-        {   
 
-            Vector2 collision = isColliding(lineCollider, game.getPlayers().get(p).getCollider());
+        for (Map.Entry<Integer, Player> playerEntry : game.getPlayers().entrySet()) 
+        {
+            Vector2 collision = isColliding(lineCollider, game.getPlayers().get(playerEntry.getKey()).getCollider());
             if(collision != null)
             {
-                players.add(game.getPlayers().get(p));
+                players.add(game.getPlayers().get(playerEntry.getKey()));
             }
         }
 

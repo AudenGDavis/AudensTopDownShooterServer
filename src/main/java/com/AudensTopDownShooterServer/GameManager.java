@@ -46,7 +46,7 @@ public class GameManager implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            this.update();
+            // this.update();
         
             
 
@@ -57,43 +57,45 @@ public class GameManager implements Runnable {
 
     synchronized private void update()
     {
+        System.out.println(game);
         //update player's positions and their respective gun reload times
-        for (Map.Entry<Integer, Player> playerEntry : game.getPlayers().entrySet()) 
-        {
-            //reloading their gun
-            game.getPlayers().get(playerEntry.getKey()).getGun().setReloadTime(
-                game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() >= game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment()? 
-                game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment() : game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() + miliSecondRate
-            );
+        // for (Map.Entry<Integer, Player> playerEntry : game.getPlayers().entrySet()) 
+        // {
+        //     //reloading their gun
+        //     game.getPlayers().get(playerEntry.getKey()).getGun().setReloadTime(
+        //         game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() >= game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment()? 
+        //         game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTimeRequirment() : game.getPlayers().get(playerEntry.getKey()).getGun().getReloadTime() + miliSecondRate
+        //     );
 
 
-            //adjust players position
-            game.getPlayers().get(playerEntry.getKey()).setXPosition(game.getPlayers().get(playerEntry.getKey()).getXVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getXPosition());
-            game.getPlayers().get(playerEntry.getKey()).setYPosition(game.getPlayers().get(playerEntry.getKey()).getYVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getYPosition());
+        //     //adjust players position
+        //     game.getPlayers().get(playerEntry.getKey()).setXPosition(game.getPlayers().get(playerEntry.getKey()).getXVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getXPosition());
+        //     game.getPlayers().get(playerEntry.getKey()).setYPosition(game.getPlayers().get(playerEntry.getKey()).getYVelocity()*(((float)miliSecondRate)/1000) + game.getPlayers().get(playerEntry.getKey()).getYPosition());
 
 
 
 
 
-            //adjust player in they're colliding
-            Vector2 collision = ColliderManager.isCollidingAny(game, game.getPlayers().get(playerEntry.getKey()));
-            while(collision != null)
-            {
-                double dy = game.getPlayers().get(playerEntry.getKey()).getYPosition() - collision.getY();
-                double dx = game.getPlayers().get(playerEntry.getKey()).getXPosition() - collision.getX();
+        //     //adjust player in they're colliding
+        //     Vector2 collision = ColliderManager.isCollidingAny(game, game.getPlayers().get(playerEntry.getKey()));
+        //     while(collision != null)
+        //     {
+        //         double dy = game.getPlayers().get(playerEntry.getKey()).getYPosition() - collision.getY();
+        //         double dx = game.getPlayers().get(playerEntry.getKey()).getXPosition() - collision.getX();
 
-                double s = Math.sqrt(dy*dy + dx*dx)/game.getPlayers().get(playerEntry.getKey()).getSize();
+        //         double s = Math.sqrt(dy*dy + dx*dx)/game.getPlayers().get(playerEntry.getKey()).getSize();
 
-                dy = dy/s*1.00001;
-                dx = dx/s*1.00001;
+        //         dy = dy/s*1.00001;
+        //         dx = dx/s*1.00001;
 
                 
 
-                game.getPlayers().get(playerEntry.getKey()).setXPosition(collision.getX() + dx);
-                game.getPlayers().get(playerEntry.getKey()).setYPosition(collision.getY() + dy);
+        //         game.getPlayers().get(playerEntry.getKey()).setXPosition(collision.getX() + dx);
+        //         game.getPlayers().get(playerEntry.getKey()).setYPosition(collision.getY() + dy);
                
-            } 
-        } 
+                
+        //     } 
+        // } 
     
         
         
