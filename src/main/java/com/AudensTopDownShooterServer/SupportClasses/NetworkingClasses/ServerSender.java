@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.ServerSocket;
 
+import com.AudensTopDownShooterServer.Main;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
 import com.google.gson.Gson;
 
@@ -49,7 +50,10 @@ public class ServerSender implements Runnable
         {
             try 
             {
-                out.println(gson.toJson(game,Game.class));
+                synchronized(Main.synchronizedBulletsLock)
+                {
+                    out.println(gson.toJson(game,Game.class));
+                }
             } 
             catch (Exception e) 
             {

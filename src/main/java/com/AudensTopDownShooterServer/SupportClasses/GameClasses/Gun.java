@@ -8,7 +8,7 @@ public class Gun {
     private float barrelLength;//world units
     private float weight;
     private String color; //hexcolor value of the 
-    private float reloadTimeRequirment;//in milliseconds
+    private float reloadTimeRequirment;//in seconds
     private float reloadTime;
 
     // Getter methods
@@ -159,7 +159,7 @@ public class Gun {
         gun.barrelLength = 50;
         gun.weight = 8;
         gun.color = "000000";
-        gun.reloadTimeRequirment = 100;
+        gun.reloadTimeRequirment = 0.001f;
         gun.reloadTime = gun.reloadTimeRequirment;
         gun.bulletSpeed = 4000;
 

@@ -1,5 +1,6 @@
 package com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses;
 
+import com.AudensTopDownShooterServer.Main;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
 import com.google.gson.Gson;
 import java.net.Socket;
@@ -55,8 +56,12 @@ public class ServerReceiver implements Runnable
         {
             try
             {
-                game.fromClientPackage(gson.fromJson(response, ClientPackage.class),playerConnection.getPlayerID());
+                synchronized(Main.synchronizedBulletsLock)
+                {
+                    game.fromClientPackage(gson.fromJson(response, ClientPackage.class),playerConnection.getPlayerID());
+                }
                 response = in.readLine();
+                Thread.sleep(1);
             } 
             catch (Exception e) 
             {
