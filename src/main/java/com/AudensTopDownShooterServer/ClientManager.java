@@ -13,18 +13,15 @@ import java.util.ArrayList;
 import com.google.gson.Gson; 
 
 import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.PlayerConnection;
-import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.ServerReceiver;
-import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.ServerSender;
+import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.ServerCommunicator;
 public class ClientManager
 {
     private int joinPortNumber;
     private int numPlayers = 0;
-    private ArrayList<PlayerConnection> playerConnections = new ArrayList<PlayerConnection>();
     private int lastUsedPortNumber;
     private String ipAddress;
     private Gson gsonConverter = new Gson();
-    private ServerReceiver serverReceiver;
-    private ServerSender serverSender;
+    private ServerCommunicator serverCommunicator;
     private Game game;
 
 
@@ -44,21 +41,17 @@ public class ClientManager
         {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
             
-            PlayerConnection newPlayerConnection = new PlayerConnection(lastUsedPortNumber + 1, lastUsedPortNumber + 2, ipAddress,numPlayers + 1,game);
-            lastUsedPortNumber += 2;
+            PlayerConnection newPlayerConnection = new PlayerConnection(lastUsedPortNumber + 1, ipAddress,numPlayers + 1,game);
+            lastUsedPortNumber += 1;
             numPlayers += 1;
 
             game.addPlayer(new Player(Gun.ar15(),50,750, 1,newPlayerConnection.getPlayerID()));
             
 
-            serverReceiver = new ServerReceiver(newPlayerConnection.getClientSenderPortNumber(),game,newPlayerConnection);
-            new Thread(serverReceiver).start();
-
-            serverSender = new ServerSender(newPlayerConnection.getClientRecieverPortNumber(),game,newPlayerConnection,serverReceiver);
-            new Thread(serverSender).start();
+            serverCommunicator = new ServerCommunicator(newPlayerConnection.getPortNumber(),game,newPlayerConnection);
+            new Thread(serverCommunicator).start();
 
             out.println(gsonConverter.toJson(newPlayerConnection));
-            playerConnections.add(newPlayerConnection);
         } 
         catch (IOException e) 
         {

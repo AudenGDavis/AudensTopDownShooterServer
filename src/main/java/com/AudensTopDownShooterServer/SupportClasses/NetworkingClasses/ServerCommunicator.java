@@ -1,6 +1,8 @@
 package com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -9,7 +11,7 @@ import com.AudensTopDownShooterServer.Main;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Game;
 import com.google.gson.Gson;
 
-public class ServerSender implements Runnable
+public class ServerCommunicator implements Runnable
 {
     private int portNumber;
     private Game game;
@@ -17,42 +19,53 @@ public class ServerSender implements Runnable
     private Socket clientSocket;
     private Gson gson;
     private PlayerConnection playerConnection;
-    private String response;
-    private ServerReceiver receiver;
+    private String response = " ";
 
-    public ServerSender(int PortNumber, Game Game, PlayerConnection PlayerConnection,ServerReceiver Receiver)
+    public ServerCommunicator(int PortNumber, Game Game, PlayerConnection PlayerConnection)
     {
         portNumber = PortNumber;
         game = Game;
         gson = new Gson();
         playerConnection = PlayerConnection;
-        receiver = Receiver;
     }
 
 
     public void run() 
     {
 		PrintWriter out = null;
+        BufferedReader in = null;
 
         try 
         {
             serverSocket = new ServerSocket(portNumber);
             clientSocket = serverSocket.accept();
 		    out = new PrintWriter(clientSocket.getOutputStream(),true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } 
         catch (IOException e) 
         {
             e.printStackTrace();
         }
         
-
-        while(receiver.stillConnected)
+        try 
+        {
+            out.println(gson.toJson(game,Game.class));
+            response = in.readLine();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        while(response != null)
         {
             try 
             {
                 synchronized(Main.synchronizedBulletsLock)
                 {
+                    game.fromClientPackage(gson.fromJson(response, ClientPackage.class),playerConnection.getPlayerID());
                     out.println(gson.toJson(game,Game.class));
+                    response = in.readLine();
+            
                 }
             } 
             catch (Exception e) 

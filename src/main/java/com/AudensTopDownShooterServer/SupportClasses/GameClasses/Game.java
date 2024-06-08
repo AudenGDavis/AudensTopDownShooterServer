@@ -61,6 +61,7 @@ public class Game {
 
     public synchronized void fromClientPackage(ClientPackage clientPackage, int playerID)
     {
+        clientPackage.getLocalPlayer().setHealth(players.get(playerID).getHealth());
         players.put(playerID, clientPackage.getLocalPlayer());
         for(int i = 0; i < clientPackage.getBullets().size(); i++)
         {
