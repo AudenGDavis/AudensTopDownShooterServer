@@ -1,21 +1,23 @@
-plugins {
+plugins{
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
     mavenCentral()
 }
 
-jar {
+jar{
     manifest {
-        archiveClassifier.set('')
-        attributes 'Main-Class' : 'com.AudensTopDownShooterServer.Main'
+        attributes 'Main-Class': 'com.AudensTopDownShooterServer.Main'
     }
 }
 
 dependencies {
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    implementation 'com.google.code.gson:gson:2.7'
 }
 
-mainClassName = 'com.AudensTopDownShooterServer.Main'
+application {
+    mainClass = 'com.AudensTopDownShooterServer.Main'
+}
