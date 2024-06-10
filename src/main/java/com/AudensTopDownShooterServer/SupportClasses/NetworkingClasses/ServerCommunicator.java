@@ -47,6 +47,7 @@ public class ServerCommunicator implements Runnable
             e.printStackTrace();
         }
         
+        
         try 
         {
             out.println(gson.toJson(game,Game.class));
@@ -63,10 +64,10 @@ public class ServerCommunicator implements Runnable
                 synchronized(Main.synchronizedBulletsLock)
                 {
                     game.fromClientPackage(gson.fromJson(response, ClientPackage.class),playerConnection.getPlayerID());
-                    out.println(gson.toJson(game,Game.class));
-                    response = in.readLine();
-            
                 }
+
+                out.println(gson.toJson(game,Game.class));
+                response = in.readLine();
             } 
             catch (Exception e) 
             {

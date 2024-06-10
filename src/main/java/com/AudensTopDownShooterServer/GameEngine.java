@@ -122,8 +122,9 @@ public class GameEngine extends JFrame
         
         System.out.println(new Gson().toJson(game));
         
+        //localIp 127.0.0.1
 
-        clientManager = new ClientManager(42069,"192.168.86.47",game);
+        clientManager = new ClientManager(42069,"127.0.0.1",game);
 
         gamePanel = new GamePanel(game, this);
         this.add(gamePanel);
