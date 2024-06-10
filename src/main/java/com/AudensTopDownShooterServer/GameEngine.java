@@ -9,6 +9,7 @@ import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Gun;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
 import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Wall;
 import com.AudensTopDownShooterServer.SupportClasses.PhysicsClasses.Vector2;
+import com.google.gson.Gson;
 import javax.swing.JFrame;
 
 public class GameEngine extends JFrame
@@ -119,10 +120,10 @@ public class GameEngine extends JFrame
 
 
         
-
+        System.out.println(new Gson().toJson(game));
         
 
-        clientManager = new ClientManager(42069,"127.0.0.1",game);
+        clientManager = new ClientManager(42069,"192.168.86.47",game);
 
         gamePanel = new GamePanel(game, this);
         this.add(gamePanel);
