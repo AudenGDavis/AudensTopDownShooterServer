@@ -110,7 +110,7 @@ public class Gun {
         gun.barrelLength = 80;
         gun.weight = 30;
         gun.color = "000000";
-        gun.reloadTimeRequirment = 3000;
+        gun.reloadTimeRequirment = 1f;
         gun.reloadTime = 0;//gun.reloadTimeRequirment;
         gun.bulletSpeed = 7000;
 

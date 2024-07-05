@@ -8,8 +8,7 @@ import com.AudensTopDownShooterServer.SupportClasses.GameClasses.Player;
 import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.JoinSocketThread;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList; 
+import java.io.PrintWriter; 
 import com.google.gson.Gson; 
 
 import com.AudensTopDownShooterServer.SupportClasses.NetworkingClasses.PlayerConnection;
@@ -45,7 +44,7 @@ public class ClientManager
             lastUsedPortNumber += 1;
             numPlayers += 1;
 
-            game.addPlayer(new Player(Gun.ar15(),50,750, 1,newPlayerConnection.getPlayerID()));
+            game.addPlayer(new Player(Gun.ar15(),50 + Math.random()*2000,750, 1,newPlayerConnection.getPlayerID()));
             
 
             serverCommunicator = new ServerCommunicator(newPlayerConnection.getPortNumber(),game,newPlayerConnection);

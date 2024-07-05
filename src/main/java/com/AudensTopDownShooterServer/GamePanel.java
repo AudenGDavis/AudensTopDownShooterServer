@@ -21,7 +21,7 @@ public class GamePanel extends JPanel
     Game game;
     private double xCamera = 0;
     private double yCamera = 0;
-    private float zoom = 1f;
+    private float zoom = 10f;
     JFrame parentFrame;
     public static final float MIN_ZOOM = 0.05f;
     
